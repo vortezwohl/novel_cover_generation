@@ -1,6 +1,6 @@
 import json
 
-from covgen.actor import ark_model, ark_client
+from covgen.actor import ark_language_model, ark_client
 from covgen.actor.image_understanding.image_understanding_prompt import ImageUnderstandingPrompt
 
 
@@ -14,7 +14,8 @@ class ImageUnderstanding(object):
         _retries = 0
         outer_keys = ['chain_of_thought', 'output']
         keys = ['呈现类型', '人物形象',
-                '人物外貌', '人物种族/地域特征',
+                '人物外貌', '人物年龄',
+                '人物神态(眼神、动作、表情、心情)', '人物种族/地域特征',
                 '人物的其他补充信息', '图像氛围',
                 '图像情绪', '图像构图特点',
                 '色彩特点', '风格特点',
@@ -27,7 +28,7 @@ class ImageUnderstanding(object):
                 return None
             try:
                 resp = ark_client.chat.completions.create(
-                    model=ark_model,
+                    model=ark_language_model,
                     messages=self._prompt.message_with_image
                 ).choices[0].message.content
                 resp_dict = json.loads(resp)
