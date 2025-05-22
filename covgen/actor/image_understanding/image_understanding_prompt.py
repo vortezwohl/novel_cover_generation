@@ -2,7 +2,7 @@ from covgen.common.base_prompt import BasePrompt
 
 
 class ImageUnderstandingPrompt(BasePrompt):
-    def __init__(self, base64_image: str, image_format: str = 'png'):
+    def __init__(self, base64_image: str, image_format: str):
         super().__init__()
         self._base64_image = base64_image
         self._image_format = image_format
@@ -26,8 +26,8 @@ class ImageUnderstandingPrompt(BasePrompt):
             '输出规范': {
                 '输出格式': 'json',
                 '输出框架': {
-                    'ChainOfThought': '<在这里给出你的思考过程, 4000字>',
-                    'Output': {
+                    'chain_of_thought': '<在这里给出你的思考过程, 4000字>',
+                    'output': {
                         '呈现类型': '...',
                         '人物形象': '...',
                         '人物外貌': '...',
@@ -53,7 +53,7 @@ class ImageUnderstandingPrompt(BasePrompt):
                     }
                 }
             },
-            '输出开始': '你的输出以 \"{"ChainOfThought":\"开始.'
+            '输出开始': '你的输出以 \"{"chain_of_thought":\"开始.'
         }
 
     @property
