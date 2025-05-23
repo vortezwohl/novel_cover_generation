@@ -23,7 +23,7 @@ class SimpleTitleGeneration(object):
         if self._title_color is None:
             _dominant_color = find_dominant_color(b64_image=base64_image)
             _dominant_color = np.minimum(_dominant_color, 255)
-            self._title_color = tuple(find_contrast_color(_dominant_color).tolist())
+            self._title_color = tuple(_dominant_color.tolist())
         log.debug(f'title_color: {self._title_color}')
 
     def generate(self):
@@ -45,7 +45,7 @@ class SimpleTitleGeneration(object):
             font = ImageFont.truetype(font=self._title_font, size=_fz)
             max_len_line = self._title
             if '\n' in self._title:
-                max_len_line = sorted(self._title.splitlines(keepends=False), key=lambda x: len(x), reverse=True)[0]
+                max_len_line = sorted(self._title.splitlines(keepends=False), key=len, reverse=True)[0]
             _text_width = text_draw.textlength(text=max_len_line, font=font)
             if _text_width <= text_size[0]:
                 font_size = _fz
@@ -54,7 +54,7 @@ class SimpleTitleGeneration(object):
         x, y = 0, 0
         font = ImageFont.truetype(font=self._title_font, size=font_size)
         for line in self._title.splitlines(keepends=False):
-            text_draw.text(xy=(x, y), text=self._title, fill=self._title_color, font=font)
+            text_draw.text(xy=(x, y), text=line, fill=self._title_color, font=font)
             y += font.getbbox(line)[1]
         base_image.paste(im=text_image, box=text_box_coordinate, mask=text_image)
         return base_image
