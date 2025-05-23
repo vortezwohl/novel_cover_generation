@@ -14,12 +14,17 @@ class ImageUnderstanding(object):
         self._prompt = ImageUnderstandingPrompt(base64_image=base64_image, image_format=image_format)
 
     def image_features(self) -> str:
-        decr = ark_client.chat.completions.create(
-            model=ark_language_model,
-            messages=self._prompt.message_with_image,
-            temperature=0.2,
-            top_p=0.3
-        ).choices[0].message.content
-        decr = json.loads(decr).get('output')
-        log.debug(f'image_understanding_prompt: {decr}')
-        return decr
+        while True:
+            try:
+                decr = ark_client.chat.completions.create(
+                    model=ark_language_model,
+                    messages=self._prompt.message_with_image,
+                    temperature=0.2,
+                    top_p=0.3
+                ).choices[0].message.content
+                decr = json.loads(decr).get('output')
+                log.debug(f'image_understanding_prompt: {decr}')
+                return decr
+            except json.decoder.JSONDecodeError as e:
+                log.error(e)
+                continue

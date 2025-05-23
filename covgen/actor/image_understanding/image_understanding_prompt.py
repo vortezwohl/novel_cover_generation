@@ -46,6 +46,9 @@ class ImageUnderstandingPrompt(BasePrompt):
     @property
     def message_with_image(self) -> list:
         return [{
+            'role': 'system',
+            'content': '你的输出请遵循正确合法的 JSON 格式'
+            }, {
             'role': 'user',
             'content': [
                 {
