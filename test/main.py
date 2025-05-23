@@ -1,9 +1,10 @@
-from covgen.actor.image_understanding.image_understanding import ImageUnderstanding
+from covgen.api import simple_cover_gen
+from covgen.data import CoverGenReq
 
 if __name__ == '__main__':
-    from covgen.util.image_stringifier import stringify
-    image_understanding = ImageUnderstanding(
-        stringify(r'D:\project\covgen\resource\knowledge_base\female_oriented\ancient_romance\eastasia_anime\1.png'),
-        image_format='png'
-    )
-    print(image_understanding.image_features())
+    images = simple_cover_gen(CoverGenReq(
+        novel='The Secret I Heard\nIn New York',
+        title='The Secret I Heard\nIn New York',
+        title_height_correction=-384))['b64_images']
+    for i, img in enumerate(images):
+        img.save(rf'D:\project\covgen\test\output\cover_imitation_simple_{i}.png')
