@@ -23,7 +23,7 @@ class ImageUnderstanding(object):
                     top_p=0.3
                 ).choices[0].message.content
                 decr = json.loads(decr).get('output')
-                log.debug(f'image_understanding_prompt: {decr}')
+                log.debug(f'image_understanding: {decr}')
                 return decr
             except json.decoder.JSONDecodeError as e:
                 log.error(e)

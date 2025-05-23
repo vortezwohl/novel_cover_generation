@@ -4,18 +4,23 @@ import math
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 
+from covgen.util.color_analysis import find_dominant_color
+
 log = logging.getLogger('covgen')
 
 
 class SimpleTitleGeneration(object):
     def __init__(self, title: str, base64_image: str,
-                 title_color: tuple | str, title_font: str,
+                 title_color: tuple | None, title_font: str,
                  title_height_correction: float = 0.):
         self._title = title
         self._base64_image = base64_image
         self._title_color = title_color
         self._title_font = title_font
         self._title_height_correction = - title_height_correction
+        if self._title_color is None:
+            self._title_color = tuple(find_dominant_color(b64_image=base64_image, n_colors=1).tolist())
+        log.debug(f'title_color: {self._title_color}')
 
     def generate(self):
         base_image = Image.open(fp=BytesIO(base64.b64decode(self._base64_image))).convert('RGBA')
@@ -49,17 +54,3 @@ class SimpleTitleGeneration(object):
             y += font.getbbox(line)[1]
         base_image.paste(im=text_image, box=text_box_coordinate, mask=text_image)
         return base_image
-
-
-if __name__ == '__main__':
-    from covgen.actor.cover_imitation.cover_imitation import CoverImitation
-    from covgen.util.image_stringifier import stringify
-    image = SimpleTitleGeneration(
-        title='The Secret\nI Heard',
-        base64_image=CoverImitation(base64_image=stringify(r'D:\project\covgen\test\output\cover_imitation.png'),
-                                    image_format='png').generate(),
-        title_color='gold',
-        title_font=r'D:\project\covgen\resource\font\Gabriola.ttf',
-        title_height_correction=-384
-    ).generate()
-    image.save(r'D:\project\covgen\test\output\cover_imitation_simple.png')
