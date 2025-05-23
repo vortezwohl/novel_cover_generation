@@ -1,3 +1,4 @@
+import json
 import logging
 
 from covgen.actor import ark_language_model, ark_client
@@ -16,8 +17,9 @@ class ImageUnderstanding(object):
         decr = ark_client.chat.completions.create(
             model=ark_language_model,
             messages=self._prompt.message_with_image,
-            temperature=0.1,
-            top_p=0.1
+            temperature=0.2,
+            top_p=0.3
         ).choices[0].message.content
+        decr = json.loads(decr).get('output')
         log.debug(f'image_understanding_prompt: {decr}')
         return decr
