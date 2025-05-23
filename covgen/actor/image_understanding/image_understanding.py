@@ -1,5 +1,9 @@
+import logging
+
 from covgen.actor import ark_language_model, ark_client
 from covgen.actor.image_understanding.image_understanding_prompt import ImageUnderstandingPrompt
+
+log = logging.getLogger('covgen')
 
 
 class ImageUnderstanding(object):
@@ -9,9 +13,11 @@ class ImageUnderstanding(object):
         self._prompt = ImageUnderstandingPrompt(base64_image=base64_image, image_format=image_format)
 
     def image_features(self) -> str:
-        return ark_client.chat.completions.create(
+        decr = ark_client.chat.completions.create(
             model=ark_language_model,
             messages=self._prompt.message_with_image,
             temperature=0.1,
             top_p=0.1
         ).choices[0].message.content
+        log.debug(f'image_understanding_prompt: {decr}')
+        return decr
