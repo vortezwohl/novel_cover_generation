@@ -50,14 +50,12 @@ class ImageUnderstandingPrompt(BasePrompt):
             'content': '你的输出请遵循正确合法的 JSON 格式'
             }, {
             'role': 'user',
-            'content': [
-                {
+            'content': [{
                     'type': 'image_url',
                     'image_url': {
                         'url': f'data:image/{self._image_format};base64,{self._base64_image}'
                     }
-                },
-                {
+                }, {
                     'type': 'text',
                     'text': self.prompt
                 }

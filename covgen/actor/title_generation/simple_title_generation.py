@@ -60,6 +60,6 @@ if __name__ == '__main__':
                                     image_format='png').generate(),
         title_color='gold',
         title_font=r'D:\project\covgen\resource\font\Gabriola.ttf',
-        title_height_correction=-512
+        title_height_correction=-384
     ).generate()
     image.save(r'D:\project\covgen\test\output\cover_imitation_simple.png')
