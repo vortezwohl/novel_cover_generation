@@ -55,6 +55,6 @@ class SimpleTitleGeneration(object):
         font = ImageFont.truetype(font=self._title_font, size=font_size)
         for line in self._title.splitlines(keepends=False):
             text_draw.text(xy=(x, y), text=line, fill=self._title_color, font=font)
-            y += font.getbbox(line)[1]
+            y += font.getbbox(line)[3]
         base_image.paste(im=text_image, box=text_box_coordinate, mask=text_image)
         return base_image
