@@ -21,10 +21,9 @@ class SimpleTitleGeneration(object):
         self._title_font = title_font
         self._title_height_correction = - title_height_correction
         if self._title_color is None:
-            _dominant_color = np.average(find_dominant_color(b64_image=base64_image, top_k=5))
-            _dominant_color += 64
+            _dominant_color = find_dominant_color(b64_image=base64_image)
             _dominant_color = np.minimum(_dominant_color, 255)
-            self._title_color = tuple(_dominant_color.tolist() + [0])
+            self._title_color = tuple(find_contrast_color(_dominant_color).tolist())
         log.debug(f'title_color: {self._title_color}')
 
     def generate(self):
