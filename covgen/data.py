@@ -3,7 +3,7 @@ import dataclasses
 
 @dataclasses.dataclass
 class CoverGenReq:
-    def __init__(self, novel: str, title: str, title_height_correction: float,
+    def __init__(self, novel: str, title: str, title_height_correction: float = .0,
                  title_color: tuple | list = None, resample: int = 4):
         self.novel = novel
         self.title = title
