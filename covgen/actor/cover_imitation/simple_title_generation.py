@@ -15,7 +15,7 @@ class SimpleTitleGeneration(object):
         self._base64_image = base64_image
         self._title_color = title_color
         self._title_font = title_font
-        self._title_height_correction = title_height_correction
+        self._title_height_correction = - title_height_correction
 
     def generate(self):
         base_image = Image.open(fp=BytesIO(base64.b64decode(self._base64_image))).convert('RGBA')
@@ -52,12 +52,14 @@ class SimpleTitleGeneration(object):
 
 
 if __name__ == '__main__':
+    from covgen.actor.cover_imitation.cover_imitation import CoverImitation
     from covgen.util.image_stringifier import stringify
     image = SimpleTitleGeneration(
         title='The Secret\nI Heard',
-        base64_image=stringify(r'D:\project\covgen\resource\knowledge_base\female_oriented\modern_romance\western_realistic\img_3.png'),
+        base64_image=CoverImitation(base64_image=stringify(r'D:\project\covgen\test\output\cover_imitation.png'),
+                                    image_format='png').generate(),
         title_color='gold',
         title_font=r'D:\project\covgen\resource\font\Gabriola.ttf',
-        title_height_correction=0
+        title_height_correction=-512
     ).generate()
     image.save(r'D:\project\covgen\test\output\cover_imitation_simple.png')
