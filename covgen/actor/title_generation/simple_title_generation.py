@@ -6,7 +6,7 @@ from io import BytesIO
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-from covgen.util.color_analysis import find_dominant_color, find_contrast_color
+from covgen.util.color_analysis import find_dominant_color
 
 log = logging.getLogger('covgen')
 
