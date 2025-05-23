@@ -69,12 +69,3 @@ def simple_cover_gen(req: CoverGenReq) -> dict:
     with ThreadPoolExecutor(max_workers=min(req.resample, 16)) as executor:
         b64_new_images_with_title = list(executor.map(from_b64_image_to_cover, b64_images))
     return CoverGenResp(b64_image=b64_new_images_with_title).to_dict()
-
-
-if __name__ == '__main__':
-    images = simple_cover_gen(CoverGenReq(
-        novel='The Secret I Heard\nIn New York',
-        title='The Secret I Heard\nIn New York',
-        title_height_correction=-384))['b64_images']
-    for i, img in enumerate(images):
-        img.save(rf'D:\project\covgen\test\output\cover_imitation_simple_{i}.png')
