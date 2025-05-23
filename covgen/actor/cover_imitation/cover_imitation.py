@@ -19,7 +19,7 @@ class CoverImitation(object):
                  title_font: str = 'arial.ttf', title_height_correction: float = 0):
         self._title = title
         self._title_font = title_font
-        self._title_height_correction = title_height_correction
+        self._title_height_correction = - title_height_correction
         self._title_color = title_color
         self._base64_image = base64_image
         self._image_format = image_format
@@ -73,6 +73,11 @@ class CoverImitation(object):
 
 if __name__ == '__main__':
     from covgen.util.image_stringifier import stringify
-    image = CoverImitation('The Secret I Heard', stringify(r'D:\project\covgen\resource\knowledge_base\female_oriented\modern_romance\western_realistic\img_3.png'),
-                           'png', title_color='white', title_font=r'D:\project\covgen\resource\font\Gabriola.ttf').generate()
+    image = CoverImitation(title='The Secret I Heard',
+                           base64_image=stringify(r'D:\project\covgen\resource\knowledge_base\female_oriented\modern_romance\western_realistic\img_3.png'),
+                           image_format='png',
+                           title_color='white',
+                           title_font=r'D:\project\covgen\resource\font\Gabriola.ttf',
+                           title_height_correction=-300
+                           ).generate()
     image.save(r'D:\project\covgen\test\output\cover_imitation.png')
