@@ -1,5 +1,3 @@
-import json
-
 from covgen.actor import ark_image_model, ark_language_model, ark_client
 from covgen.actor.image_understanding.image_understanding import ImageUnderstanding
 
@@ -11,15 +9,31 @@ class CoverImitation(object):
         self._prompt = ImageUnderstanding(
             base64_image=base64_image,
             image_format=image_format
-        ).image_features().get('output')
-        if self._prompt.get('视觉元素') is not None:
-            self._prompt['视觉元素']['图片风格为'] = self._prompt['视觉元素']['呈现类型']
-            del self._prompt['视觉元素']['呈现类型']
-        if self._prompt.get('文字信息') is not None:
-            self._prompt['文字信息']['文案内容']['书名'] = title
+        ).image_features()
         self._prompt = ark_client.chat.completions.create(
             model=ark_language_model,
-            messages=f'将以下 Json 提示词改为可读性更优的 Markdown 格式: {json.dumps(self._prompt, ensure_ascii=False)}'
+            messages=[
+                {
+                    'role': 'system',
+                    'content': [
+                        {
+                            'type': 'text',
+                            'text': '你是一个提示词撰写专家, 将这段以 Json 为主的[原始提示词]改写为**可读性更优**且**更加简洁**的 Markdown 格式提示词. '
+                                    '提示词需要分为两大块, 一块是"视觉元素", 一块是"文本信息" (文本信息需强调书名). 你的输出以 "## 视觉元素\n" 开始.'
+                        }
+                    ]
+                },
+                {
+                    'role': 'user',
+                    'content': [
+                        {
+                            'type': 'text',
+                            'text': f'[原始提示词]: "请为《{title}》生成一份适合网文的平面书封 (要求在图中写上书名, 需强调) 书封图片描述: {self._prompt}".'
+                        }
+                ]
+            }],
+            temperature=0.1,
+            top_p=0.1
         ).choices[0].message.content
 
     def generate(self, size: str = '720x960') -> str:
