@@ -25,7 +25,7 @@ class CoverImitation(object):
                 return ark_client.images.generate(
                     model=ark_image_model,
                     prompt=json.dumps(self._prompt, ensure_ascii=False)
-                    + '\n注意: 1.请避免生成NSFW和地缘政治内容. 2.请避免生成任何文字.',
+                    + '\n注意: 1.请避免生成裸露和地缘政治内容. 2.请避免生成任何文字.',
                     size=f'{size[0]}x{size[1]}',
                     response_format='b64_json',
                     watermark=False,
