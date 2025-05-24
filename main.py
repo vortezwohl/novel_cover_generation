@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 SecretKey = "**CdAi2024@cDaI!GROUP**"
 failedStatus = 3
 THREAD_POOL = ThreadPoolExecutor(max_workers=8)
-REDIS_TASK_TYPE = 24
+REDIS_TASK_TYPE = 25
 
 
 def hash_sign(body):
