@@ -26,7 +26,13 @@ class SimpleTitleGeneration(object):
             self._title_color = tuple(_dominant_color.tolist())
         log.debug(f'title_color: {self._title_color}')
 
-    def generate(self):
+    @staticmethod
+    def pillow_image_to_b64(image: Image) -> str:
+        buffered = BytesIO()
+        image.save(buffered, format='PNG')
+        return base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+    def generate(self) -> str:
         base_image = Image.open(fp=BytesIO(base64.b64decode(self._base64_image))).convert('RGBA')
         size = base_image.size
         text_size = 9 * size[0] // 10, size[1] // 2
@@ -57,4 +63,4 @@ class SimpleTitleGeneration(object):
             text_draw.text(xy=(x, y), text=line, fill=self._title_color, font=font)
             y += font.getbbox(line)[3]
         base_image.paste(im=text_image, box=text_box_coordinate, mask=text_image)
-        return base_image
+        return self.pillow_image_to_b64(base_image)

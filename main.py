@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 SecretKey = "**CdAi2024@cDaI!GROUP**"
 failedStatus = 3
-THREAD_POOL = ThreadPoolExecutor(max_workers=8)
+THREAD_POOL = ThreadPoolExecutor(max_workers=32)
 REDIS_TASK_TYPE = 25
 
 
