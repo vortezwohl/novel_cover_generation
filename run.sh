@@ -1,1 +1,1 @@
-uvicorn main:app --port 80
+gunicorn -c ./config/gunicorn.py main:app
