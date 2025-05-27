@@ -15,9 +15,10 @@ client = AppConfig()
 configure_logging(client.get_value(SettingKey.Kafka_HOST.value), client.get_value(SettingKey.Kafka_TOPIC.value))
 logger = logging.getLogger(__name__)
 app = FastAPI()
+logger.info('Starting app...')
 
 
-@app.get('/gen/simple')
+@app.post('/gen/simple')
 async def simple_cover_generation(req: CoverGenReq):
     logger.debug(req)
     req.resample = 1
