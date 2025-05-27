@@ -24,7 +24,7 @@ async def simple_cover_generation(req: CoverGenReq):
     req.resample = 1
     stream = BytesIO(base64.b64decode(simple_cover_gen(req)['b64_images'][0]))
     image_file = Image.open(stream)
-    temp_file = tempfile.NamedTemporaryFile(delete_on_close=True, suffix='.png')
+    temp_file = tempfile.NamedTemporaryFile(suffix='.png')
     image_file.save(temp_file, format='PNG')
     temp_file.seek(0)
     return StreamingResponse(temp_file,

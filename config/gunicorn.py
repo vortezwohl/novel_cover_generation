@@ -14,7 +14,7 @@ threads = 16
 backlog = 1024
 
 # 超时时间
-timeout = 360
+timeout = 3600
 
 # 设置守护进程,将进程交给 supervisor 管理；如果设置为 True 时，supervisor 启动日志为：
 # gave up: fastapi_server entered FATAL state, too many start retries too quickly
