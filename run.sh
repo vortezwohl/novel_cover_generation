@@ -1,1 +1,1 @@
-HF_ENDPOINT="https://hf-mirror.com" python3 main.py
+gunicorn -c ./config/gunicorn.py main:app
