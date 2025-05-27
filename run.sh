@@ -1,1 +1,1 @@
-uvicorn main:app --port 80 --host 0.0.0.0 --workers 8 --timeout-keep-alive 3600 --daemon
+uvicorn main:app --port 80 --host 0.0.0.0 --workers 8 --timeout-keep-alive 3600
