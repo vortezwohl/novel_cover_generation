@@ -18,7 +18,7 @@ app = FastAPI()
 logger.info('Starting app...')
 
 
-@app.post('/gen/simple')
+@app.post('/v1/gen/simple')
 async def simple_cover_generation(req: CoverGenReq):
     logger.debug(req)
     req.resample = 1
