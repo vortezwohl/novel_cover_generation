@@ -18,9 +18,18 @@ class DiffuserTitledCoverGeneration(object):
             base64_image=base64_image,
             image_format=image_format
         ).image_features()
+        if isinstance(self._prompt, dict) or isinstance(self._prompt, list):
+            self._prompt = json.dumps(self._prompt, ensure_ascii=False)
+        self._prompt = (self._prompt
+                        .replace('\",', '; ')
+                        .replace('\'', '')
+                        .replace('\"', '')
+                        .replace('’', '')
+                        .replace('“', '')
+                        .replace('”', ''))
         self._prompt = (f'"{self._title}" 是书封的书名. 你生成的书封图必须带有书名文字, 且不能有其他任何冗余文字.\n'
                         + '注意: 请避免生成裸露和地缘政治内容.\n'
-                        + json.dumps(self._prompt, ensure_ascii=False))
+                        + f'书封图描述: {self._prompt}')
         log.debug(f'diffuser_titled_cover_generation_prompt: {self._prompt}')
 
     def generate(self, size: tuple = (720, 960)) -> str:
