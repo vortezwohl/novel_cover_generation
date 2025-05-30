@@ -19,3 +19,10 @@ class CoverGenResp:
 
     def to_dict(self):
         return {'b64_images': self.b64_image}
+
+
+@dataclasses.dataclass
+class TitledCoverGenReq(BaseModel):
+    novel: str
+    title: str
+    resample: int = 1
