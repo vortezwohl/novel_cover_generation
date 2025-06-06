@@ -19,7 +19,7 @@ class CoverImitation(object):
         ).image_features()
         log.debug(f'cover_imitation_prompt: {self._prompt}')
 
-    def generate(self, size: tuple = (720, 960), max_retries: int = 10) -> str | None:
+    def generate(self, size: tuple = (720, 960), max_retries: int = 5) -> str | None:
         retries = 0
         while retries < max_retries:
             try:

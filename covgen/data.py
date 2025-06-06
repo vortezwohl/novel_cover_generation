@@ -18,11 +18,12 @@ class CoverGenReq(BaseModel):
 
 @dataclasses.dataclass
 class CoverGenResp:
-    def __init__(self, b64_image: list[str] | None):
+    def __init__(self, b64_image: list[str | None]):
         self.b64_image = b64_image
 
     def to_dict(self):
-        return {'b64_images': self.b64_image if self.b64_image is not None else image_to_base64(get_files(COMMON_ROOT)[0], image_format='png')}
+        return {'b64_images': [x if x is not None else image_to_base64(get_files(COMMON_ROOT)[0], image_format='png')
+                               for x in self.b64_image]}
 
 
 @dataclasses.dataclass

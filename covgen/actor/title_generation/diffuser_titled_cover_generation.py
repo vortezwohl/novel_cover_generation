@@ -32,7 +32,7 @@ class DiffuserTitledCoverGeneration(object):
                         + f'书封图描述: {self._prompt}')
         log.debug(f'diffuser_titled_cover_generation_prompt: {self._prompt}')
 
-    def generate(self, size: tuple = (720, 960), max_retries: int = 10) -> str | None:
+    def generate(self, size: tuple = (720, 960), max_retries: int = 5) -> str | None:
         retries = 0
         while retries < max_retries:
             try:
