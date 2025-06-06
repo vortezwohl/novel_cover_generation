@@ -2,6 +2,10 @@ import dataclasses
 
 from pydantic import BaseModel
 
+from covgen.util.image_stringifier import image_to_base64
+from covgen.util.read_file import get_files
+from resource import COMMON_ROOT
+
 
 @dataclasses.dataclass
 class CoverGenReq(BaseModel):
@@ -14,11 +18,11 @@ class CoverGenReq(BaseModel):
 
 @dataclasses.dataclass
 class CoverGenResp:
-    def __init__(self, b64_image: list[str]):
+    def __init__(self, b64_image: list[str] | None):
         self.b64_image = b64_image
 
     def to_dict(self):
-        return {'b64_images': self.b64_image}
+        return {'b64_images': self.b64_image if self.b64_image is not None else image_to_base64(get_files(COMMON_ROOT)[0], image_format='png')}
 
 
 @dataclasses.dataclass
