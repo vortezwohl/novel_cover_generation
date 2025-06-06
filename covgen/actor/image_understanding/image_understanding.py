@@ -1,5 +1,6 @@
 import json
 import logging
+import random
 
 from covgen.util.hash import md5
 from covgen.actor import ark_language_model, ark_client
@@ -17,7 +18,7 @@ class ImageUnderstanding(object):
         self._msg_hash = md5(json.dumps(self._prompt.message_with_image))
 
     def image_features(self) -> str:
-        if self._msg_hash in CACHE.keys():
+        if self._msg_hash in CACHE.keys() and random.uniform(0, 1) > .33:
             decr = CACHE[self._msg_hash]
             log.debug(f'image_with_text_understanding_cache: {decr}')
             return decr
