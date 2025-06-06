@@ -20,7 +20,7 @@ class ImageUnderstanding(object):
     def image_features(self) -> str:
         if self._msg_hash in CACHE.keys() and random.uniform(0, 1) > .33:
             decr = CACHE[self._msg_hash]
-            log.debug(f'image_with_text_understanding_cache: {decr}')
+            log.debug(f'image_understanding_cache: {decr}')
             return decr
         while True:
             try:
