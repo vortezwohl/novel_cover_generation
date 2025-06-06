@@ -19,8 +19,9 @@ class CoverImitation(object):
         ).image_features()
         log.debug(f'cover_imitation_prompt: {self._prompt}')
 
-    def generate(self, size: tuple = (720, 960)) -> str:
-        while True:
+    def generate(self, size: tuple = (720, 960), max_retries: int = 10) -> str | None:
+        retries = 0
+        while retries < max_retries:
             try:
                 return ark_client.images.generate(
                     model=ark_image_model,
@@ -33,4 +34,6 @@ class CoverImitation(object):
                 ).data[0].b64_json
             except ArkBadRequestError as e:
                 log.error(e)
+                retries += 1
                 continue
+        return None

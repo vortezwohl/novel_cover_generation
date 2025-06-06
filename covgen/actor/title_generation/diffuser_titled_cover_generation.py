@@ -32,8 +32,9 @@ class DiffuserTitledCoverGeneration(object):
                         + f'书封图描述: {self._prompt}')
         log.debug(f'diffuser_titled_cover_generation_prompt: {self._prompt}')
 
-    def generate(self, size: tuple = (720, 960)) -> str:
-        while True:
+    def generate(self, size: tuple = (720, 960), max_retries: int = 10) -> str | None:
+        retries = 0
+        while retries < max_retries:
             try:
                 return ark_client.images.generate(
                     model=ark_image_model,
@@ -45,4 +46,6 @@ class DiffuserTitledCoverGeneration(object):
                 ).data[0].b64_json
             except ArkBadRequestError as e:
                 log.error(e)
+                retries += 1
                 continue
+        return None
