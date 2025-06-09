@@ -23,6 +23,16 @@ app = FastAPI()
 logger.info('Starting app...')
 
 
+@app.get('/healthz/ready')
+async def health_check():
+    return 'OK'
+
+
+@app.get('/healthz/live')
+async def live_check():
+    return 'OK'
+
+
 @app.post('/v1/gen/simple')
 async def simple_cover_generation(req: CoverGenReq):
     logger.debug(f'/v1/gen/simple 收到请求: {req}')
