@@ -1,17 +1,15 @@
 import dataclasses
 
-from pydantic import BaseModel
-
 from covgen.util.image_stringifier import image_to_base64
 from covgen.util.read_file import get_files
 from resource import COMMON_ROOT
 
 
 @dataclasses.dataclass
-class CoverGenReq(BaseModel):
+class CoverGenReq:
     novel: str
     title: str
-    title_color: list = None
+    title_color: list | None = None
     title_height_correction: float = .0
     resample: int = 1
 
@@ -27,7 +25,7 @@ class CoverGenResp:
 
 
 @dataclasses.dataclass
-class TitledCoverGenReq(BaseModel):
+class TitledCoverGenReq:
     novel: str
     title: str
     resample: int = 1

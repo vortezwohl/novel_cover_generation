@@ -11,3 +11,4 @@ python-dotenv>=1.1.0
 requests>=2.32.3
 scikit-learn>=1.6.1
 volcengine-python-sdk[ark]>=3.0.2
+git+https://gitlab.changdu.ltd/060270/async_service_sdk.git@main

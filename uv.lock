@@ -26,6 +26,17 @@ wheels = [
 ]
 
 [[package]]
+name = "async-service"
+version = "0.3.1"
+source = { git = "https://gitlab.changdu.ltd/060270/async_service_sdk.git?rev=main#558e30e76676b2e7139065d7247a17473f732533" }
+dependencies = [
+    { name = "psutil" },
+    { name = "redis" },
+    { name = "requests" },
+    { name = "vortezwohl" },
+]
+
+[[package]]
 name = "certifi"
 version = "2025.4.26"
 source = { registry = "https://pypi.org/simple" }
@@ -187,6 +198,7 @@ name = "covgen"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "async-service" },
     { name = "confluent-kafka" },
     { name = "fastapi" },
     { name = "matplotlib" },
@@ -205,6 +217,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "async-service", git = "https://gitlab.changdu.ltd/060270/async_service_sdk.git?rev=main" },
     { name = "confluent-kafka", specifier = "==2.10.0" },
     { name = "fastapi", specifier = ">=0.115.12" },
     { name = "matplotlib", specifier = ">=3.10.3" },
@@ -536,6 +549,15 @@ wheels = [
 ]
 
 [[package]]
+name = "overrides"
+version = "7.7.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/36/86/b585f53236dec60aba864e050778b25045f857e17f6e5ea0ae95fe80edd2/overrides-7.7.0.tar.gz", hash = "sha256:55158fa3d93b98cc75299b1e67078ad9003ca27945c76162c1c0766d6f91820a", size = 22812 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2c/ab/fc8290c6a4c722e5514d80f62b2dc4c4df1a68a41d1364e625c35990fcf3/overrides-7.7.0-py3-none-any.whl", hash = "sha256:c7ed9d062f78b8e4c1a7b70bd8796b35ead4d9f510227ef9c5dc7626c60d7e49", size = 17832 },
+]
+
+[[package]]
 name = "packaging"
 version = "25.0"
 source = { registry = "https://pypi.org/simple" }
@@ -716,8 +738,17 @@ wheels = [
 ]
 
 [[package]]
+name = "redis"
+version = "6.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ea/9a/0551e01ba52b944f97480721656578c8a7c46b51b99d66814f85fe3a4f3e/redis-6.2.0.tar.gz", hash = "sha256:e821f129b75dde6cb99dd35e5c76e8c49512a5a0d8dfdc560b2fbd44b85ca977", size = 4639129 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/13/67/e60968d3b0e077495a8fee89cf3f2373db98e528288a48f1ee44967f6e8c/redis-6.2.0-py3-none-any.whl", hash = "sha256:c8ddf316ee0aab65f04a11229e94a64b2618451dab7a67cb2f77eb799d872d5e", size = 278659 },
+]
+
+[[package]]
 name = "requests"
-version = "2.32.3"
+version = "2.32.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
@@ -725,9 +756,9 @@ dependencies = [
     { name = "idna" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/63/70/2bf7780ad2d390a8d301ad0b550f1581eadbd9a20f896afe06353c2a2913/requests-2.32.3.tar.gz", hash = "sha256:55365417734eb18255590a9ff9eb97e9e1da868d4ccd6402399eaf68af20a760", size = 131218 }
+sdist = { url = "https://files.pythonhosted.org/packages/e1/0a/929373653770d8a0d7ea76c37de6e41f11eb07559b103b1c02cafb3f7cf8/requests-2.32.4.tar.gz", hash = "sha256:27d0316682c8a29834d3264820024b62a36942083d52caf2f14c0591336d3422", size = 135258 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f9/9b/335f9764261e915ed497fcdeb11df5dfd6f7bf257d4a6a2a686d80da4d54/requests-2.32.3-py3-none-any.whl", hash = "sha256:70761cfe03c773ceb22aa2f671b4757976145175cdfca038c02654d061d6dcc6", size = 64928 },
+    { url = "https://files.pythonhosted.org/packages/7c/e4/56027c4a6b4ae70ca9de302488c5ca95ad4a39e190093d6c1a8ace08341b/requests-2.32.4-py3-none-any.whl", hash = "sha256:27babd3cda2a6d50b30443204ee89830707d396671944c998b5975b031ac2b2c", size = 64847 },
 ]
 
 [[package]]
@@ -896,4 +927,18 @@ ark = [
     { name = "cryptography" },
     { name = "httpx" },
     { name = "pydantic" },
+]
+
+[[package]]
+name = "vortezwohl"
+version = "0.0.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "overrides" },
+    { name = "psutil" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/47/3c/8e5db27b361a130217f46ae4d8a5cdf586967d46a91e5d4e00abc6025fd2/vortezwohl-0.0.2.tar.gz", hash = "sha256:6812cd1d0d0dd679bac7cfc512528423259df6fd9f4e00ac32816bcf98fac8ec", size = 5549 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/83/10/9a7a068780a9b5cae0b7e4a98c247fd41bfe00e93460c294f18ef781c029/vortezwohl-0.0.2-py3-none-any.whl", hash = "sha256:fc695731480a601b1f87b5a3221a01c5b2354f7341c9794cfc45bd088784f188", size = 6763 },
 ]

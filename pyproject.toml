@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "async-service",
     "confluent-kafka==2.10.0",
     "fastapi>=0.115.12",
     "matplotlib>=3.10.3",
@@ -20,3 +21,6 @@ dependencies = [
     "uvicorn>=0.34.2",
     "volcengine-python-sdk[ark]>=3.0.2",
 ]
+
+[tool.uv.sources]
+async-service = { git = "https://gitlab.changdu.ltd/060270/async_service_sdk.git", rev = "main" }
