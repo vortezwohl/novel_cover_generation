@@ -14,21 +14,20 @@ class NovelLanguageRecognition(object):
 
     def recognize(self):
         lang = None
-        while True:
-            try:
-                decr = ark_client.chat.completions.create(
-                    model=ark_language_model,
-                    messages=self._prompt.message,
-                    temperature=0.1,
-                    top_p=0.1
-                ).choices[0].message.content
-                decr = json.loads(decr).get('output')
-                if 'zh' in decr:
-                    lang = Lang.Zh
-                else:
-                    lang = Lang.En
-                log.debug(f'novel_language_recognition: {lang}')
-                return lang
-            except json.decoder.JSONDecodeError as e:
-                log.error(e)
-                continue
+        try:
+            decr = ark_client.chat.completions.create(
+                model=ark_language_model,
+                messages=self._prompt.message,
+                temperature=0.1,
+                top_p=0.1
+            ).choices[0].message.content
+            decr = json.loads(decr).get('output')
+            if 'zh' in decr:
+                lang = Lang.Zh
+            else:
+                lang = Lang.En
+            log.debug(f'novel_language_recognition: {lang}')
+            return lang
+        except json.decoder.JSONDecodeError as e:
+            log.error(e)
+            return Lang.En

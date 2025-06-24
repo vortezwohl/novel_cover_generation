@@ -16,29 +16,28 @@ class NovelThemeRecognition(object):
     def recognize(self):
         subject = None
         region = None
-        while True:
-            try:
-                decr = ark_client.chat.completions.create(
-                    model=ark_language_model,
-                    messages=self._prompt.message,
-                    temperature=0.1,
-                    top_p=0.1
-                ).choices[0].message.content
-                decr = json.loads(decr).get('output')
-                if '欧美' in decr:
-                    region = Region.Western
-                elif '东南亚' in decr:
-                    region = Region.SouthEastAsia
-                else:
-                    region = Region.EastAsia
-                if '现代言' in decr:
-                    subject = Subject.ModernRomance
-                elif '古代言' in decr:
-                    subject = Subject.AncientRomance
-                else:
-                    subject = Subject.Werewolves
-                log.debug(f'novel_theme_recognition: {subject} {region}')
-                return subject, region
-            except json.decoder.JSONDecodeError as e:
-                log.error(e)
-                continue
+        try:
+            decr = ark_client.chat.completions.create(
+                model=ark_language_model,
+                messages=self._prompt.message,
+                temperature=0.1,
+                top_p=0.1
+            ).choices[0].message.content
+            decr = json.loads(decr).get('output')
+            if '欧美' in decr:
+                region = Region.Western
+            elif '东南亚' in decr:
+                region = Region.SouthEastAsia
+            else:
+                region = Region.EastAsia
+            if '现代言' in decr:
+                subject = Subject.ModernRomance
+            elif '古代言' in decr:
+                subject = Subject.AncientRomance
+            else:
+                subject = Subject.Werewolves
+            log.debug(f'novel_theme_recognition: {subject} {region}')
+            return subject, region
+        except json.decoder.JSONDecodeError as e:
+            log.error(e)
+            return Subject.ModernRomance, Region.Western
